@@ -11,8 +11,8 @@ ACTION_SCALE = 0.25 # 增加到0.25
 
 DEFAULT_DOF_POS_ISAAC = np.array([
     -0.1, 0.1, -0.1, 0.1,   # Hips (FL, FR, RL, RR)
-    0.8,  0.8,  0.8,  0.8,   # Thighs (FL, FR, RL, RR)
-   -1.2, -1.2, -1.3, -1.3    # Calves (FL, FR, RL, RR)
+    0.5,  0.5,  0.9,  0.9,   # Thighs (FL, FR, RL, RR)
+   -1.1, -1.1, -1.1, -1.1    # Calves (FL, FR, RL, RR)
 ])
 
 model = mujoco.MjModel.from_xml_path(MODEL_PATH)
@@ -34,8 +34,8 @@ def get_single_frame_obs(data, commands, last_action_isaac):
     # B. 重力投影 (3)
     q = data.sensor('imu_quat').data  # [w, x, y, z]
     gravity_proj = np.zeros(3)
-    mujoco.mju_rotVecQuat(gravity_proj, np.array([0, 0, -1.0]), q)
-    
+    mujoco.mju_rotVecQuat(gravity_proj, np.array([0, 0, 1.0]), q)
+    print(f"重力投影: {gravity_proj}")
     # C. 关节位置与速度 (重排为 Isaac 顺序)
     mj_qpos = data.qpos[7:19]
     mj_qvel = data.qvel[6:18]
@@ -75,7 +75,7 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
     
     # --- 行走逻辑环节 ---
     control_dt = 0.02  # 50Hz控制频率（匹配Isaac Gym训练）
-    steps_per_control = int(control_dt / model.opt.timestep)  # 自动计算步数
+    steps_per_control = int(control_dt / model.opt.timestep) # 自动计算步数
     
     print(f"控制频率: {1/control_dt:.1f}Hz")
     print(f"物理步长: {model.opt.timestep*1000:.1f}ms")

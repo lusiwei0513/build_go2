@@ -2,7 +2,7 @@
   <include file="go2_2.xml"/>
 
   <!-- 降低求解器迭代次数，使用CG求解器更稳定 -->
-  <option timestep="0.002" gravity="0 0 -9.81" cone="elliptic" solver="Newton" iterations="100" tolerance="1e-6"/>
+  <option gravity="0 0 -9.81" cone="elliptic" solver="CG" iterations="50" tolerance="1e-6"/>
   <statistic center="0 0 0.1" extent="0.8"/>
 
   <visual>
@@ -22,9 +22,9 @@
     <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
     <!-- 增加地面摩擦力和柔软度 -->
     <geom name="floor" size="0 0 0.05" type="plane" material="groundplane" 
-          friction="3.0 0.05 0.01" solimp="0.9 0.95 0.001" solref="0.02 1"/>
+          friction="1.5 0.05 0.01" solimp="0.95 0.9 0.001" solref="0.01 1"/>
 
-    <!-- <geom pos="1.2 0 0.04" type="box"  size="0.1 2 0.04" quat="1.0 0 0 0"/>
+    <geom pos="1.2 0 0.04" type="box"  size="0.1 2 0.04" quat="1.0 0 0 0"/>
     <geom pos="1.6 0 0.04" type="box"  size="0.1 2 0.04" quat="1.0 0 0 0"/>
 
     <geom pos="2.3 0 0.02" type="box"  size="0.2 2 0.15" quat="1.0 0 0 0"/>
@@ -32,6 +32,6 @@
     <geom pos="2.8 0 0.02" type="box"  size="0.23 2 0.45" quat="1.0 0 0 0"/>
     <geom pos="3 0 0.02" type="box"  size="0.24 2 0.6" quat="1.0 0 0 0"/>
     <geom pos="3.2 0 0.02" type="box"  size="0.25 2 0.75" quat="1.0 0 0 0"/>
-    <geom pos="3.4 0 0.02" type="box"  size="0.26 2 0.9" quat="1.0 0 0 0"/> -->
+    <geom pos="3.4 0 0.02" type="box"  size="0.26 2 0.9" quat="1.0 0 0 0"/>
   </worldbody>
 </mujoco>

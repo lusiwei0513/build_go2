@@ -5,14 +5,14 @@ import numpy as np
 import time
 
 # 1. 配置区
-MODEL_PATH = "scene.xml"
+MODEL_PATH = "scene2_3.xml"
 POLICY_PATH = "policy.onnx"
-ACTION_SCALE = 0.15
+ACTION_SCALE = 0.25
 
 DEFAULT_DOF_POS_ISAAC = np.array([
     -0.1, 0.1, -0.1, 0.1,   # Hips (FL, FR, RL, RR)
     0.8,  0.8,  0.8,  0.8,   # Thighs (FL, FR, RL, RR)
-   -1.3, -1.3, -1.3, -1.3    # Calves (FL, FR, RL, RR)
+   -1.2, -1.2, -1.2, -1.2    # Calves (FL, FR, RL, RR)
 ])
 model = mujoco.MjModel.from_xml_path(MODEL_PATH)
 data = mujoco.MjData(model)
@@ -74,8 +74,8 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
     
     print("开始行走测试！")
     # --- 行走逻辑环节 ---
-    control_dt = 0.01  
-    steps_per_control = 2
+    control_dt = 0.02  
+    steps_per_control = 10
     
     print(f"开始行走测试！控制频率: {1/control_dt}Hz, 物理步数/周: {steps_per_control}")
 
