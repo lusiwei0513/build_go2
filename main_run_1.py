@@ -9,11 +9,12 @@ MODEL_PATH = "scene2.xml"
 POLICY_PATH = "policy.onnx"
 ACTION_SCALE = 0.25 # 增加到0.25
 
+# 1. 严格按照 Isaac 顺序排列的基准值 (FL, FR, RL, RR)
 DEFAULT_DOF_POS_ISAAC = np.array([
-    -0.1, 0.1, -0.1, 0.1,   # Hips (FL, FR, RL, RR)
-    0.5,  0.5,  0.9,  0.9,   # Thighs (FL, FR, RL, RR)
-   -1.1, -1.1, -1.1, -1.1    # Calves (FL, FR, RL, RR)
-])
+    0.1, -0.1,  0.1, -0.1,   # Hips
+    0.5,  0.5,  1.0,  1.0,   # Thighs (前腿0.8, 后腿1.0)
+   -1.1, -1.1, -1.2, -1.2    # Calves
+], dtype=np.float32)
 
 model = mujoco.MjModel.from_xml_path(MODEL_PATH)
 data = mujoco.MjData(model)
@@ -70,7 +71,8 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         mujoco.mj_step(model, data)
         viewer.sync()
         time.sleep(model.opt.timestep)
-    
+    current_obs = get_single_frame_obs(data, np.array([0,0,0]), np.zeros(12))
+    print(f"当前关节位置偏差: {current_obs[9:21]}")
     print("开始行走测试！")
     
     # --- 行走逻辑环节 ---

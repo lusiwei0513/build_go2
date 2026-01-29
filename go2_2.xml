@@ -6,16 +6,16 @@
   <default>
   <default class="go2">
     <geom friction="2.0 0.05 0.01" margin="0.001" condim="3" solimp="0.9 0.95 0.001" solref="0.03 1"/>
-    <joint axis="0 1 0" damping="1.0" armature="0.02" frictionloss="0.01"/>
+    <joint axis="0 1 0" damping="1.5" armature="0.03" frictionloss="0.01"/>
     <position kp="25" kv="0.5" forcelimited="true" forcerange="-45.43 45.43"/>
 
     <default class="abduction">
-      <joint axis="1 0 0" range="-0.2 0.2" armature="0.02" damping="1.0"/>
+      <joint axis="1 0 0" range="-0.2 0.2" armature="0.02" damping="2.0"/>
       <position kp="25" kv="0.5" forcerange="-23.7 23.7"/>
     </default>
 
     <default class="hip">
-      <joint damping="1.5" armature="0.03"/>
+      <joint damping="2.0" armature="0.01"/>
       <default class="front_hip">
         <joint range="-1.5708 3.4907"/>
       </default>
@@ -25,7 +25,7 @@
     </default>
 
     <default class="knee">
-      <joint range="-2.7227 -0.83776" damping="3.0" armature="0.06"/>
+      <joint range="-2.7227 -0.83776" damping="2.0" armature="0.06"/>
       <default class="front_knee">
         <position kp="25" kv="0.5" forcerange="-45.43 45.43"/>
       </default>
@@ -71,7 +71,7 @@
 
   <worldbody>
     <body name="base_link" pos="0 0 0.445" childclass="go2">
-      <inertial pos="0.02 0 -0.005366" quat="-0.000543471 0.713435 -0.00173769 0.700719"
+      <inertial pos="0.05 0 -0.005366" quat="-0.000543471 0.713435 -0.00173769 0.700719"
         mass="6.921"
         diaginertia="0.107027 0.0980771 0.0244531" />
       <freejoint />
@@ -293,7 +293,7 @@
 
   <keyframe>
     <key name="home" 
-        qpos="0 0 0.35 1 0 0 0  -0.1 0.6 -1.2  0.1 0.6 -1.2  -0.1 0.8 -1.3  0.1 0.8 -1.3"
-        ctrl="-0.1 0.6 -1.2  0.1 0.6 -1.2  -0.1 0.8 -1.3  0.1 0.8 -1.3" />
+        qpos="0 0 0.35 1 0 0 0  -0.1 0.5 -1.1 0.1 0.5 -1.1  -0.1 1.0 -1.2  0.1 1.0 -1.2"
+        ctrl="-0.1 0.5 -1.1  0.1 0.5 -1.1  -0.1 1.0 -1.2  0.1 1.0 -1.2" />
   </keyframe>
 </mujoco>
